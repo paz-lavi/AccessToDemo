@@ -17,14 +17,16 @@ import com.paz.accesstolib.GrantListener;
 
 
 public class MainActivity extends AppCompatActivity {
-    MaterialButton main_BTN_requestPermissions, main_BTN_requestPermissionsWithForce, main_BTN_requestPermissionsWithDialog;
-    GiveMe giveMe;
+   private MaterialButton main_BTN_requestPermissions, main_BTN_requestPermissionsWithForce, main_BTN_requestPermissionsWithDialog;
+  private   GiveMe giveMe;
+  private final String TAG = "MY_TAG";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.d("pttt", "onCreate: ");
+        Log.d(TAG, "onCreate: ");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         giveMe = new GiveMe(this);
+        giveMe.setDebug(true);
 
         setViews();
         setListeners();
@@ -35,31 +37,31 @@ public class MainActivity extends AppCompatActivity {
     private final GrantListener listener = new GrantListener() {
         @Override
         public void onGranted(boolean allGranted) {
-            Log.d("pttt", "onGranted = " + allGranted);
+            Log.d(TAG, "onGranted = " + allGranted);
 
         }
 
         @Override
         public void onNotGranted(String[] permissions) {
-            Log.d("pttt", "onNotGranted");
+            Log.d(TAG, "onNotGranted");
             for (String permission : permissions) {
-                Log.d("pttt", permission);
+                Log.d(TAG, permission);
 
             }
         }
 
         @Override
         public void onNeverAskAgain(String[] permissions) {
-            Log.d("pttt", "onNeverAskAgain");
+            Log.d(TAG, "onNeverAskAgain");
             giveMe.askPermissionsFromSetting("give me permissions",permissions ,new DialogListener() {
                 @Override
                 public void onPositiveButton() {
-                    Log.d("pttt", "onReTry");
+                    Log.d(TAG, "onReTry");
                 }
 
                 @Override
                 public void onNegativeButton() {
-                    Log.d("pttt", "onImSure");
+                    Log.d(TAG, "onImSure");
 
                 }
             });
@@ -72,15 +74,15 @@ public class MainActivity extends AppCompatActivity {
     private final GrantListener listener2 = new GrantListener() {
         @Override
         public void onGranted(boolean allGranted) {
-            Log.d("pttt", "onGranted = " + allGranted);
+            Log.d(TAG, "onGranted = " + allGranted);
 
         }
 
         @Override
         public void onNotGranted(String[] permissions) {
-            Log.d("pttt", "onNotGranted");
+            Log.d(TAG, "onNotGranted");
             for (String permission : permissions) {
-                Log.d("pttt", permission);
+                Log.d(TAG, permission);
 
             }
         }
@@ -108,13 +110,13 @@ public class MainActivity extends AppCompatActivity {
                 "Permission needed", "need permission for testing the functions", new DialogListener() {
                     @Override
                     public void onPositiveButton() {
-                        Log.d("pttt", "agree");
+                        Log.d(TAG, "agree");
 
                     }
 
                     @Override
                     public void onNegativeButton() {
-                        Log.d("pttt", "decline");
+                        Log.d(TAG, "decline");
 
                     }
                 });
@@ -126,13 +128,13 @@ public class MainActivity extends AppCompatActivity {
                 Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION,} , listener2,"need permission for testing the functions" ,  new DialogListener() {
             @Override
             public void onPositiveButton() {
-                Log.d("pttt", "agree");
+                Log.d(TAG, "agree");
 
             }
 
             @Override
             public void onNegativeButton() {
-                Log.d("pttt", "decline");
+                Log.d(TAG, "decline");
 
             }
         });
